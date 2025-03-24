@@ -22,3 +22,6 @@ node_modules/
 # WebStorm
 #//////////////////////////
 .idea/
+Assets/AssetStoreTools*
+Packages/manifest.json
+Packages/packages-lock.json
