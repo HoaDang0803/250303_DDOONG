@@ -1,0 +1,4 @@
+repository "250303_DDOONG@thanhhoa8323@cloud"
+  path "/"
+    br "/main"
+    co "/main"
