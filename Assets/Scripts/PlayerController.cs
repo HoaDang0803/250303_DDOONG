@@ -18,7 +18,7 @@ public class PlayerController : MonoBehaviour
     private float dirZ = 0f;
 
     public Animator anim;
-    private enum MovementState { Idle, Running }
+    private enum MovementState { Idle, Running, Jumping, Faling, Looting, Attacking }
 
     private void Start()
     {
@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour
     {
         isGrounded = characterController.isGrounded;
 
-        if (isGrounded)
+        if (isGrounded && velocity.y < 0)
         {
             velocity.y = -2f;
             numberOfJumps = 0;
@@ -87,7 +87,14 @@ public class PlayerController : MonoBehaviour
     {
         MovementState state;
 
-        if (dirX > 0f || dirZ > 0f || dirX < 0f || dirZ < 0f)
+        if (!isGrounded)
+        {
+            if (velocity.y > 0.1f)
+                state = MovementState.Jumping;
+            else
+                state = MovementState.Faling;
+        }
+        else if (dirX != 0f || dirZ != 0f)
         {
             state = MovementState.Running;
         }

@@ -77,7 +77,6 @@
     <Compile Include="Assets\Resources\3D Rule Tiles\Scripts\RuleTileScriptableObject.cs" />
     <Compile Include="Assets\Scripts\interaction\Item.cs" />
     <Compile Include="Assets\Scripts\interaction\ToolHit.cs" />
-    <Compile Include="Assets\Scripts\interaction\ItemDragandDropController.cs" />
     <Compile Include="Assets\Scripts\interaction\PickUp.cs" />
     <Compile Include="Assets\Scripts\interaction\TreesCut.cs" />
     <Compile Include="Assets\Scripts\interaction\InventoryPanel.cs" />

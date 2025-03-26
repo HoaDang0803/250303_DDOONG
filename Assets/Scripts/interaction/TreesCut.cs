@@ -22,6 +22,5 @@ public class TreesCut : ToolHit
         }
 
         Destroy(gameObject);
-
     }
 }

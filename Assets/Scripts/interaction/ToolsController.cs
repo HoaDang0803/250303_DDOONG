@@ -14,7 +14,7 @@ public class ToolsController : MonoBehaviour
         player = GetComponent<PlayerController>();
         rb = GetComponent<Rigidbody2D>();
     }
- 
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.X))

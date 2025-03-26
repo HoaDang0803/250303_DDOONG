@@ -28,7 +28,7 @@ public class ItemContainer : ScriptableObject
                 itemSlot = slots.Find(x => x.item == null);
                 if (itemSlot != null)
                 {
-                    itemSlot.item = item; 
+                    itemSlot.item = item;
                     itemSlot.count = count;
                 }
             }
