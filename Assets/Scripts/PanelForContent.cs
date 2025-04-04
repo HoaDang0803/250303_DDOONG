@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PanelForContent : MonoBehaviour
@@ -6,10 +7,11 @@ public class PanelForContent : MonoBehaviour
     public GameObject canvas;
     public CanvasGroup panel1; // Panel đầu tiên
     public CanvasGroup panel2; // Panel thứ hai
-    public float fadeDuration = 1f; // Thời gian hiệu ứng fade
+    public float fadeDuration = 3f; // Thời gian hiệu ứng fade
 
     private int clickCount = 0; // Đếm số lần click
-    private bool isFading = false; // Tránh spam input
+    private bool isFading = false;
+    public TextMeshProUGUI text;
 
     void Start()
     {
@@ -65,11 +67,11 @@ public class PanelForContent : MonoBehaviour
     IEnumerator FinishFade()
     {
         yield return new WaitForSeconds(fadeDuration); // Đợi thời gian fade xong
-
+        text.text = "Nhấn X để tấn công!";
         // Lưu trạng thái đã xem qua panel
         PlayerPrefs.SetInt("CanvasSeen", 1);
         PlayerPrefs.Save(); // Đảm bảo dữ liệu được lưu lại
-
+        yield return new WaitForSeconds(3f);
         canvas.SetActive(false);
     }
 }

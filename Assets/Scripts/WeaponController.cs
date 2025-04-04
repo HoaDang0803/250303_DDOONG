@@ -12,7 +12,7 @@ public class WeaponController : MonoBehaviour
     public Animator swordAnimator;
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && canAttack)
+        if (Input.GetKeyDown(KeyCode.X) && canAttack)
         {
             SoundController.instance.PlaySoundEffect(SoundController.instance.attack);
             SwordAttack();

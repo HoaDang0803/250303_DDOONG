@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
 
     public void QuitGame()
     {
+        PlayerPrefs.DeleteKey("CanvasSeen");
         Application.Quit();
         //Thoát cả trên editor
 #if UNITY_EDITOR
