@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +13,7 @@ public class InventoryPanel : MonoBehaviour
         Show();
     }
 
-    public void OnEnable()
+    public void Update()
     {
         Show();
     }
@@ -24,7 +23,7 @@ public class InventoryPanel : MonoBehaviour
     {
         for (int i = 0; i < inventory.slots.Count; i++)
         {
-            if(inventory.slots[i].item!=null)
+            if (inventory.slots[i].item != null)
             {
                 buttons[i].SetIcon(inventory.slots[i]);
             }

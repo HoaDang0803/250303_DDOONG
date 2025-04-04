@@ -8,4 +8,9 @@ public class Interactable : MonoBehaviour
     {
 
     }
+
+    public virtual void Uninteract(Character character)
+    {
+
+    }
 }

@@ -59,13 +59,16 @@
     <UnityVersion>6000.0.40f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Analyzer Include="C:\Users\dangh\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
+    <Analyzer Include="C:\Users\dangh\.vscode\extensions\visualstudiotoolsforunity.vstuc-1.1.1\Analyzers\Microsoft.Unity.Analyzers.dll" />
     <Analyzer Include="D:\Unity\6000.0.40f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.SourceGenerators.dll" />
     <Analyzer Include="D:\Unity\6000.0.40f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
     <Analyzer Include="D:\Unity\6000.0.40f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.UIToolkit.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\interaction\FadeObject.cs" />
     <Compile Include="Assets\Scripts\interaction\ToolsController.cs" />
+    <Compile Include="Assets\Scripts\EnermyController.cs" />
+    <Compile Include="Assets\Scripts\CanoeMovement.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\interaction\Interactable.cs" />
     <Compile Include="Assets\Scripts\interaction\GameManager.cs" />
@@ -74,20 +77,25 @@
     <Compile Include="Assets\Scripts\interaction\Character.cs" />
     <Compile Include="Assets\Resources\3D Rule Tiles\Scripts\RuleTileList3D.cs" />
     <Compile Include="Assets\Scripts\interaction\CharacterInteractController.cs" />
+    <Compile Include="Assets\Scripts\RiverController.cs" />
     <Compile Include="Assets\Resources\3D Rule Tiles\Scripts\RuleTileScriptableObject.cs" />
     <Compile Include="Assets\Scripts\interaction\Item.cs" />
+    <Compile Include="Assets\Scripts\EnermyMovement.cs" />
     <Compile Include="Assets\Scripts\interaction\ToolHit.cs" />
     <Compile Include="Assets\Scripts\interaction\PickUp.cs" />
-    <Compile Include="Assets\Scripts\interaction\TreesCut.cs" />
+    <Compile Include="Assets\Scripts\SoundController.cs" />
     <Compile Include="Assets\Scripts\interaction\InventoryPanel.cs" />
+    <Compile Include="Assets\Scripts\PanelForContent.cs" />
     <Compile Include="Assets\Scripts\interaction\TalkInteract.cs" />
+    <Compile Include="Assets\Scripts\NextLevel.cs" />
     <Compile Include="Assets\Scripts\interaction\HighlightController.cs" />
     <Compile Include="Assets\Scripts\interaction\ItemContainer.cs" />
     <Compile Include="Assets\Scripts\PlayerLife.cs" />
-    <Compile Include="Assets\Scripts\CameraShake.cs" />
+    <Compile Include="Assets\Scripts\SceneTransition.cs" />
     <Compile Include="Assets\Scripts\interaction\InventoryController.cs" />
+    <Compile Include="Assets\Scripts\EnermyAttack.cs" />
     <Compile Include="Assets\Resources\3D Rule Tiles\Scripts\MeshCombiner.cs" />
-    <Compile Include="Assets\Scripts\interaction\LootContainer.cs" />
+    <Compile Include="Assets\Scripts\CameraChange.cs" />
     <Compile Include="Assets\Resources\3D Rule Tiles\Scripts\RuleTile3D.cs" />
     <Compile Include="Assets\Scripts\CollisionDetection.cs" />
   </ItemGroup>
@@ -96,8 +104,10 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
@@ -1329,6 +1339,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="Assembly-CSharp-firstpass.csproj" />
   </ItemGroup>
   <Import Project="Sdk.targets" Sdk="Microsoft.NET.Sdk" />
   <ItemGroup>

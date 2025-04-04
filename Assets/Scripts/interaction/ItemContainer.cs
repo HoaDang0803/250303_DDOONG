@@ -43,5 +43,24 @@ public class ItemContainer : ScriptableObject
             }
         }
     }
+
+    private void OnDisable()
+    {
+        for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].item = null;
+            slots[i].count = 0;
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+       for (int i = 0; i < slots.Count; i++)
+        {
+            slots[i].item = null;
+            slots[i].count = 0;
+        }
+    }
+
 }
 

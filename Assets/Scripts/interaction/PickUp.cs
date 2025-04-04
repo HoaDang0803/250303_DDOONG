@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PickUp : MonoBehaviour
 {
@@ -9,10 +11,12 @@ public class PickUp : MonoBehaviour
     [SerializeField] private float pickUpDistance = 1.5f;
 
     public GameObject messagePanel;
+    public TextMeshProUGUI mesageText;
 
     public Item item;
     public int count = 1;
-
+    private bool isCollecting = false;
+    private bool isNearItem = false;
     private void Start()
     {
         player = GameManager.instance.player.transform;
@@ -20,11 +24,35 @@ public class PickUp : MonoBehaviour
     private void Update()
     {
         float distance = Vector3.Distance(transform.position, player.position);
-        if (distance > pickUpDistance)
+
+        // Nếu trong phạm vi thì hiện messagePanel, ngược lại thì ẩn
+        if (distance <= pickUpDistance)
         {
-            return;
+            if (!isNearItem) // Chỉ bật panel nếu nó chưa bật
+            {
+                OpenMessagePanel("Nhấn F để nhặt vật phẩm");
+                isNearItem = true;
+            }
+
+            // Chỉ cho phép nhấn F khi đang trong phạm vi
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                isCollecting = true;
+            }
+        }
+        else
+        {
+            if (isNearItem) // Chỉ tắt panel nếu nó đang bật
+            {
+                CloseMessagePanel();
+                isNearItem = false;
+            }
+            isCollecting = false;
         }
 
+        if (!isCollecting) return;
+
+        // Hút item về phía player
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
         if (distance < 0.1f)
@@ -38,16 +66,22 @@ public class PickUp : MonoBehaviour
                 Debug.LogWarning("Inventory Container is null");
             }
             Destroy(gameObject);
+            isCollecting = false;
+            CloseMessagePanel();
         }
     }
 
     public void OpenMessagePanel(string message)
     {
+        mesageText.text = message;
+        Debug.Log("Open message panel");
         messagePanel.SetActive(true);
     }
 
     public void CloseMessagePanel()
     {
+        mesageText.text = string.Empty;
+        Debug.Log("Close message panel");
         messagePanel.SetActive(false);
     }
 }

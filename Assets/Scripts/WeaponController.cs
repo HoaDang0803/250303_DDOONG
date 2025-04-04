@@ -9,10 +9,12 @@ public class WeaponController : MonoBehaviour
     public float attackCooldown = 1f;
     public bool isAttacking = false;
 
+    public Animator swordAnimator;
     void Update()
     {
         if (Input.GetMouseButtonDown(0) && canAttack)
         {
+            SoundController.instance.PlaySoundEffect(SoundController.instance.attack);
             SwordAttack();
         }
     }
@@ -21,6 +23,8 @@ public class WeaponController : MonoBehaviour
     {
         isAttacking = true;
         canAttack = false;
+        Animator anim = swordAnimator.GetComponent<Animator>();
+        anim.SetTrigger("Attack");
         StartCoroutine(ResetAttackCoolDown());
     }
 

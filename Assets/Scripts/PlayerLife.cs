@@ -1,23 +1,41 @@
 using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerLife : MonoBehaviour
 {
+    private Rigidbody rb;
     public int maxHealth = 10;
     public int currentHealth;
-    private bool isTakingDamage = false; // Kiểm soát việc trừ máu theo thời gian
+    private bool isTakingDamage = false;
+    private bool isDie = false;
+    [SerializeField] private ItemContainer inventory;
+
+    // 🎨 UI thanh máu
+    public Image healthBar;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
+
+        // 🟢 Bắt đầu tự hồi máu mỗi 5 giây
+        StartCoroutine(RegenerateHealth());
     }
 
     void Update()
     {
+        if (isDie) return;
+        
+        // 🌡 Cập nhật thanh máu UI
+        UpdateHealthBar();
+
         if (transform.position.y < -5)
         {
             TakeDamage(Random.Range(2, 4));
         }
+
         if (currentHealth <= 0)
         {
             Die();
@@ -34,13 +52,13 @@ public class PlayerLife : MonoBehaviour
 
             // Xác định hướng đẩy ngược
             Vector3 pushDirection = (transform.position - hit.transform.position).normalized;
-            float pushDistance = 1.5f; // Điều chỉnh khoảng cách đẩy
-            float pushForce = 5f; // Điều chỉnh lực đẩy cho Enemy
+            float pushDistance = 1.5f;
+            float pushForce = 5f;
 
-            // Đẩy Player bằng CharacterController.Move()
+            // Đẩy Player
             StartCoroutine(PushBack(pushDirection, pushDistance));
 
-            // Đẩy Enemy bằng Rigidbody.AddForce()
+            // Đẩy Enemy
             Rigidbody enemyRb = hit.gameObject.GetComponent<Rigidbody>();
             if (enemyRb != null)
             {
@@ -49,11 +67,10 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-
     IEnumerator PushBack(Vector3 direction, float distance)
     {
         CharacterController controller = GetComponent<CharacterController>();
-        float pushTime = 0.2f; // Thời gian đẩy lùi (giảm nếu muốn nhanh hơn)
+        float pushTime = 0.2f;
         float elapsedTime = 0f;
 
         while (elapsedTime < pushTime)
@@ -64,7 +81,6 @@ public class PlayerLife : MonoBehaviour
         }
     }
 
-
     void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("Health"))
@@ -74,16 +90,15 @@ public class PlayerLife : MonoBehaviour
             Heal(heal);
         }
 
-        // Khi nhân vật bước vào khu vực chông/mìn
+        // 🛑 Check Trap (Gây sát thương liên tục)
         if (other.gameObject.CompareTag("Trap") && !isTakingDamage)
         {
-            StartCoroutine(DamageOverTime(2f, other)); // Gây sát thương mỗi 2 giây
+            StartCoroutine(DamageOverTime(2f, other));
         }
     }
 
     void OnTriggerExit(Collider other)
     {
-        // Khi nhân vật rời khỏi khu vực chông/mìn, dừng trừ máu
         if (other.gameObject.CompareTag("Trap"))
         {
             isTakingDamage = false;
@@ -100,25 +115,57 @@ public class PlayerLife : MonoBehaviour
 
             yield return new WaitForSeconds(interval);
 
-            // Nếu nhân vật rời khỏi bẫy thì dừng coroutine
             if (!isTakingDamage) break;
         }
     }
 
-    void TakeDamage(int damage)
+    void UpdateHealthBar()
+    {
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = (float)currentHealth / maxHealth;
+        }
+    }
+
+    IEnumerator RegenerateHealth()
+    {
+        while (!isDie)
+        {
+            yield return new WaitForSeconds(5f);
+            if (currentHealth < maxHealth)
+            {
+                Heal(1);
+                Debug.Log("Player regenerated 1 health!");
+            }
+        }
+    }
+
+    public void TakeDamage(int damage)
     {
         currentHealth -= damage;
-        Debug.Log("Current Health: " + currentHealth);
+        UpdateHealthBar();
     }
 
     void Heal(int heal)
     {
         currentHealth = Mathf.Min(currentHealth + heal, maxHealth);
+        UpdateHealthBar();
     }
 
     void Die()
     {
-        Debug.Log("Player died");
-        Time.timeScale = 0;
+        isDie = true;
+        SoundController.instance.PlaySoundEffect(SoundController.instance.die);
+        Invoke("Reset", 2f);
+    }
+
+    private void Reset()
+    {
+        for (int i = 0; i < inventory.slots.Count; i++)
+        {
+            inventory.slots[i].item = null;
+            inventory.slots[i].count = 0;
+        }
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

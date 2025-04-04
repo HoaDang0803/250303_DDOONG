@@ -12,6 +12,8 @@ TagManager:
   - Tile Mesh
   - Health
   - NPC
+  - NextScene
+  - End
   layers:
   - Default
   - TransparentFX

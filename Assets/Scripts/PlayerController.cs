@@ -75,6 +75,7 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetButtonDown("Jump") && numberOfJumps < maxNumberOfJumps)
         {
+            SoundController.instance.PlaySoundEffect(SoundController.instance.jumping);
             numberOfJumps++;
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }

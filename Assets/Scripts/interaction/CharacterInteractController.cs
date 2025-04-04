@@ -23,19 +23,20 @@ public class CharacterInteractController : MonoBehaviour
     {
         Check();
 
-        if (Input.GetKeyDown(KeyCode.X))
+        Collider[] colliders = Physics.OverlapSphere(transform.position, sizeOfHitBox);
+        foreach (var collider in colliders)
         {
-            Collider[] colliders = Physics.OverlapSphere(transform.position, sizeOfHitBox);
-            foreach (var collider in colliders)
+            if (collider.gameObject.CompareTag("NPC"))
             {
-                if (collider.gameObject.CompareTag("NPC"))
+                Vector3 posA = new Vector3(collider.transform.position.x, 0, collider.transform.position.z);
+                Vector3 posB = new Vector3(transform.position.x, 0, transform.position.z);
+                if (Vector3.Distance(posA, posB) < offsetDistance)
                 {
-                    Vector3 posA = new Vector3(collider.transform.position.x, 0, collider.transform.position.z);
-                    Vector3 posB = new Vector3(transform.position.x, 0, transform.position.z);
-                    if (Vector3.Distance(posA, posB) < offsetDistance)
-                    {
-                        collider.GetComponent<Interactable>().Interact(character);
-                    }
+                    collider.GetComponent<Interactable>().Interact(character);
+                }
+                else
+                {
+                    collider.GetComponent<Interactable>().Uninteract(character);
                 }
             }
         }
@@ -54,6 +55,7 @@ public class CharacterInteractController : MonoBehaviour
             {
                 if (Vector3.Distance(posA, posB) < offsetDistance)
                 {
+
                     highlightController.Highlight(collider.gameObject);
                     return;
                 }
@@ -62,4 +64,5 @@ public class CharacterInteractController : MonoBehaviour
 
         highlightController.Hide();
     }
+
 }
