@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Paddle
   isStackable: 1
-  itemSprite: {fileID: 1552048576, guid: 5b7b83e4c21ad5346b97113d4b12463e, type: 3}
+  itemSprite: {fileID: 21300000, guid: e15f46e6addaf8a46a94ccddeeb94046, type: 3}

@@ -4,13 +4,15 @@ using UnityEngine.SceneManagement;
 public class NextLevel : MonoBehaviour
 {
     private bool LevelComplete = false;
+    public SceneTransition sceneTransition;
 
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.name == "Player" && !LevelComplete)
         {
             LevelComplete = true;
-            Invoke("CompleteLevel", 0.1f);
+            sceneTransition.ChangeScene();
+            Invoke("CompleteLevel", 1.2f);
         }
     }
 

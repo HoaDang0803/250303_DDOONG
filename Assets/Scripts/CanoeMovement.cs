@@ -13,7 +13,6 @@ public class CanoeMovement : MonoBehaviour
     [SerializeField] private GameObject messagePanel;
     [SerializeField] private TextMeshProUGUI messageText;
     [SerializeField] private GameObject river;
-    public SceneTransition sceneTransition;
     private int currentWaypointIndex = 0;
     private bool canMove = false;
     private bool isPlayerNear = false;
@@ -37,7 +36,6 @@ public class CanoeMovement : MonoBehaviour
                 ShowMessage("Nhấn E để bắt đầu di chuyển bè.");
                 if (Input.GetKeyDown(KeyCode.E))
                 {
-                    sceneTransition.ChangeScene();
                     canMove = true;
                     HideMessage();
                 }
@@ -50,6 +48,17 @@ public class CanoeMovement : MonoBehaviour
 
         if (canMove)
         {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            if (player != null)
+            {
+                CharacterController playerController = player.GetComponent<CharacterController>();
+                if (playerController != null)
+                {
+                    Vector3 targetPosition = transform.position;
+                    targetPosition.y = player.transform.position.y; // Giữ nguyên chiều cao của Player
+                    playerController.Move((targetPosition - player.transform.position) * Time.deltaTime * speed);
+                }
+            }
             MoveCanoe();
         }
     }
@@ -104,9 +113,6 @@ public class CanoeMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            if (controller != null) controller.enabled = false;
-            other.gameObject.transform.SetParent(transform);
             isPlayerNear = true;
         }
     }
@@ -115,9 +121,6 @@ public class CanoeMovement : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            CharacterController controller = other.gameObject.GetComponent<CharacterController>();
-            if (controller != null) controller.enabled = true;
-            other.gameObject.transform.SetParent(null);
             isPlayerNear = false;
             HideMessage();
         }

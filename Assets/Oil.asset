@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: Oil
   isStackable: 1
-  itemSprite: {fileID: -1085474574, guid: 5b7b83e4c21ad5346b97113d4b12463e, type: 3}
+  itemSprite: {fileID: 21300000, guid: 1cef741a19cb11247bdce884123574e7, type: 3}

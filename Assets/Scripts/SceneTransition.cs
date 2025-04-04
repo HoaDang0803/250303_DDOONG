@@ -9,18 +9,17 @@ public class SceneTransition : MonoBehaviour
 
     private void Start()
     {
-        fadeCanvasGroup.gameObject.SetActive(true); // Đảm bảo CanvasGroup được kích hoạt
         StartCoroutine(FadeIn()); // Khi vào scene, màn hình sáng dần
     }
 
     public void ChangeScene()
     {
-        fadeCanvasGroup.gameObject.SetActive(true);
         StartCoroutine(FadeOut()); // Khi chuyển scene, màn hình đen dần
     }
 
     private IEnumerator FadeIn()
     {
+        fadeCanvasGroup.gameObject.SetActive(true); // Đảm bảo CanvasGroup được kích hoạt
         float time = 0;
         while (time < fadeDuration)
         {
@@ -35,6 +34,7 @@ public class SceneTransition : MonoBehaviour
 
     private IEnumerator FadeOut()
     {
+        fadeCanvasGroup.gameObject.SetActive(true);
         float time = 0;
         while (time < fadeDuration)
         {
