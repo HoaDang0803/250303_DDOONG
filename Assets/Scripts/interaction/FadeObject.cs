@@ -30,7 +30,7 @@ public class RoofHouse : MonoBehaviour
 
             // Giảm Alpha để làm trong suốt
             Color color = m.color;
-            color.a = 0.5f; // Làm mờ 50%
+            color.a = 0.25f; // Làm mờ 50%
             m.color = color;
 
         }
@@ -44,7 +44,7 @@ public class RoofHouse : MonoBehaviour
             m.renderQueue = (int)UnityEngine.Rendering.RenderQueue.Transparent;
             // Giảm Alpha để làm trong suốt
             Color color = m.color;
-            color.a = 0.5f; // Làm mờ 50%
+            color.a = 0.25f; // Làm mờ 50%
             m.color = color;
         }
     }

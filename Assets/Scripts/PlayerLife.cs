@@ -12,7 +12,7 @@ public class PlayerLife : MonoBehaviour
     private bool isDie = false;
     [SerializeField] private ItemContainer inventory;
 
-    // 🎨 UI thanh máu
+
     public Image healthBar;
 
     void Start()
@@ -20,7 +20,6 @@ public class PlayerLife : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         currentHealth = maxHealth;
 
-        // 🟢 Bắt đầu tự hồi máu mỗi 5 giây
         StartCoroutine(RegenerateHealth());
     }
 
@@ -28,7 +27,6 @@ public class PlayerLife : MonoBehaviour
     {
         if (isDie) return;
         
-        // 🌡 Cập nhật thanh máu UI
         UpdateHealthBar();
 
         if (transform.position.y < -5)
@@ -83,14 +81,6 @@ public class PlayerLife : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Health"))
-        {
-            int heal = Random.Range(0, 5);
-            Debug.Log("Player healed " + heal + " health");
-            Heal(heal);
-        }
-
-        // 🛑 Check Trap (Gây sát thương liên tục)
         if (other.gameObject.CompareTag("Trap") && !isTakingDamage)
         {
             StartCoroutine(DamageOverTime(2f, other));

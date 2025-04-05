@@ -52,7 +52,6 @@ public class PickUp : MonoBehaviour
 
         if (!isCollecting) return;
 
-        // Hút item về phía player
         transform.position = Vector3.MoveTowards(transform.position, player.position, speed * Time.deltaTime);
 
         if (distance < 0.1f)

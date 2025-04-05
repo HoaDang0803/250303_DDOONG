@@ -30,12 +30,10 @@ public class TalkInteract : Interactable
 
         OpenMessagePanel("Nhấn E để nói chuyện");
 
-        // Chờ người chơi nhấn E
         yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.E));
 
         OpenMessagePanel("Đây là đá lửa được tạo ra từ dung nham. Nó có thể sẽ giúp con trên hành trình này.");
 
-        // Đợi 3 giây trước khi đóng thông báo
         yield return new WaitForSeconds(3f);
 
         // Đóng thông báo
